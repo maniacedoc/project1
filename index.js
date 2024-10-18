@@ -17,6 +17,7 @@ window.addEventListener('load',()=>{
             sounds[index].currentTime=0;
             sounds[index].play();
 
+  
             createBubbles(index);
         });
     });
@@ -31,4 +32,25 @@ window.addEventListener('load',()=>{
             visual.removeChild(this);
         });
     }
+    // Add a mouse trail effect
+  const stickContainer = document.createElement('div');
+  stickContainer.className = 'stick-container';
+  document.body.appendChild(stickContainer);
+
+  let sticks = [];
+
+  document.addEventListener('mousemove', (e) => {
+    const stick = document.createElement('div');
+    stick.className = 'stick';
+    stickContainer.appendChild(stick);
+    sticks.push(stick);
+
+    stick.style.left = `${e.clientX}px`;
+    stick.style.top = `${e.clientY}px`;
+
+    setTimeout(() => {
+      stickContainer.removeChild(stick);
+      sticks = sticks.filter((s) => s !== stick);
+    }, 100); // remove stick after 100ms
+  });
 });
